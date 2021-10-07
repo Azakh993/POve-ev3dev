@@ -19,7 +19,7 @@ Detta dokument behandlar inte följande:
 | Axel Lystam           | Projektmedlem | lystam@kth.se  |
 | Daniel Dahlberg       | Projektmedlem | ddahlb@kth.se  |
 | Marcus Cangren        | Projektmedlem | cangren@kth.se |
-| KTH                   | Uppgiftsägare |                |
+| Kursansvarig          | Uppgiftsägare |                |
 
 ## Kommunikation
 Projektgruppen har Discord som primär kommunikationskanal. Förväntad responstid är inom en dag. För mer brådskande ärenden används SMS, och svar förväntas inom ett par timmar. Vid mer brådskande situationer används telefonsamtal.
@@ -50,30 +50,26 @@ Följande mjukvaror och webbsidor används av projektgruppen:
 # Projektets tre huvudmål
 
 ## Resultatmål
-Projektets deadline är 2021-10-13 och senast då ska roboten vara utvecklad enligt kravspecifikationen.
+Projektets deadline är 2021-10-13 och senast då ska roboten vara tillräckligt funktionell för att kunna klara av följande uppgift:
+Starta c:a 50 cm från en vägg i en korridor (minst 150 cm bred, högst 400 cm; huvudsakligen släta väggar med förekomst av eluttag, glasade partier, golvlister och annat) i en slumpmässig riktning och därifrån leverera ett paket till en plats:
+  1.	250 cm åt höger längs väggen, 0 - 30 cm från väggen.
+  2.	250 cm åt vänster längs väggen, 0 - 30 cm från väggen.
+  3.	250 cm åt höger, tvärs över korridoren, 0 - 30 cm från väggen på andra sidan korridoren.
+  4.	250 cm åt vänster, tvärs över korridoren, 0 - 30 cm från väggen på andra sidan korridoren.
+
+Innan varje uppdrag börjar får någon ur projektgruppen placera paketet på roboten. Paketet följer sedan med roboten till rätt destination enligt uppdraget. Vid destinationen ska roboten lasta av paketet och lämna det på golvet. Det paket som ska levereras är kurslitteraturen ”Arbeta i projekt - individen, gruppen, ledaren” av Sven Eklund.
+
+Kraven ovan är ”Must enligt MoSCoW-modellen. ”Should”-krav är att roboten kan återvända till utgångsplatsen själv och vara klar för nästa leverans. ”Could”-kraven är att (1) roboten kan läsa in leveransadresser i form av streckkod, (2) att den kan leverera till verkliga kontorsrum eller lärosalar i Electrumhuset, och/eller (3) att det finns något ”enkelt” sätt att lära roboten nya leveransadresser.
+
+Uppgiftägarens preferens är att roboten ska vara programmerad i språket C, men accepterar programmering i LEGO MINDSTORMS Education EV3 Classrom om föregående alternativ ej kan utföras innan deadline.
 
 ## Effektmål
-Önskad effekt produkten är att denna skall kunna utdela post till förprogrammerade platser och således minska på behovet av att disponera mänskliga resurser till postutdelning.
+Projektets effektmål är att levererad produkt ska ersätta beställarens befintliga resurser som är allokerade till detta; resultatet av denna ersättning ska vara en personalkostnadsreducering.
 
 ## Projektmål
-Projektgruppens interna mål är att samtliga projektmedlemmar får tillräckligt god förståelse för projektarbete så att de individuellt kan driva ett mindre IT-projekt i framtiden, och att detta resulterar i att medlemmarna uppnår kursmålen och således blir godkända i kursen.
+Detta projekt har två projektmål: (1) att samtliga projektmedlemmar får tillräcklig kompetens och erfarenhet inom projektarbete och projektmetodik för att i framtiden kunna driva ett mindre IT-projekt i framtiden, samt att (2) detta resulterar i att projektmedlemmarna uppnår kursmålen och således blir godkända i kursen.
 
 # Fas-, tids- och resursplan
-
-## Fasplan
-Detta projekt är uppdelat i fyra olika faser: ”Definitionsfas”, ”Planeringsfas” ”Utförandefas” och ”Utvärderingsfas”.
-
-### Definitionsfas
-Innan projektet kan börja arbetas på, så behövs en gedigen utvärdering utav åtagna uppgiften samt en grovplanering av projektets genomförande. Resultatet av detta arbete finns dels i detta dokument (projektdefinitionen), dels i kravspecifikationen; båda agerar som milstolpar för Definitionsfasen.
-
-### Planeringsfas
-I planeringsfasen skiftar fokus från vad uppgiften är till hur uppgiften kan lösas. Planeringen är betydligt mer detaljerad; större problem bryts ned och delegeras på individnivå via WBS-program; PERT-schema ger struktur i vilken ordning arbetsuppgifter bör utföras; Gantt-schema ger en detaljerad och samtidigt översiktsbild över projektets status.
-
-### Utförandefas
-I denna fas realiseras planerna från definitions- och planeringsfasen. Arbetet blir betydligt mer operativt orienterat; primärt arbete sker i form av C-programmering och justeringar av LEGO-robotens konstruktion. I slutet av varje iteration testas nya funktioner som tillkommit.
-
-### Utvärderingsfas
-Sista fasen av projektet har fokus på utvärdering av resultatet och jämförelse med det som beskrivits i kravspecifikationen. Utöver detta utvärderas och sammanställs alla erfarenheter som gruppen och dess medlemmar har fått med sig under projektets gång.
 
 ## Tidsplan
 Projektet startade 2021-09-08 och avslutas 2021-10-28. Tiden mellan dessa datum är uppdelade i sex iterationer och fyra faser (mer om faser följer i nästa sektion av kapitlet). Varje iteration är c:a en vecka lång och avslutas med ett handledningstillfälle, vars funktion är att granska projektets utveckling och agera milstolpe för iterationen. Vad som granskas under varje handledningstillfälle är specificerat under kapitel ”Rapport- och Granskningsplan”. Datum för handledningstillfällena är som följer:
@@ -88,9 +84,24 @@ Utöver dessa finns ytterligare tre milstolpar; en projektpresentation i vilket 
   * Projektdemonstration: 2021-10-13
   * Kursrapportinlämning: 2021-10-28
 
+## Fasplan
+Detta projekt inkluderar totalt fyra faser, som är uppdelade i ovan nämna fem iterationer:  ”Definitionsfas”, ”Planeringsfas” ”Utförandefas” och ”Utvärderingsfas”.
+
+### Definitionsfas
+Kan även refereras till som en ”Förstudie-fas”; gedigen utvärdering utav åtagna uppgiften genomförs och en grovplanering av projektets genomförande etableras. Resultatet av detta arbete finns speglas dels i detta dokument (projektdefinitionen), dels i kravspecifikationen. Båda agerar som milstolpar för Definitionsfasen.
+
+### Planeringsfas
+Varje iteration startar med en Planeringsfas; större problem bryts ned och delegeras på individnivå. Eventuella problemlösningsmöten utöver ordinarie möten bokas in.
+
+### Utförandefas
+Efter Planeringsfasen följer Utförandefasen, i vilket arbetet blir betydligt mer operativt orienterat; primärt sker arbete i form av C-programmering och justeringar av LEGO-robotens konstruktion.
+
+### Utvärderingsfas
+I Utvärderingsfasen granskas pågående iterations resultat och arbetsgången reflekteras över. Detta inkluderar funktionstester, dokumentgranskning och reflektionsmöte.
+
 ## Resursplan
 I detta projektarbete har gruppen valt att arbeta med befintliga resurser såsom den av KTH givna LEGO MINDSTORMS-lådan, deltagarnas egna datorer, mjukvara som är gratis för allmänheten eller given av KTH till alla studenter samt KTH:s lokaler.
-Den resurs som kan regleras av projektgruppen är projektmedlemmarnas arbetsinsats, uttryckt i antalet arbetstimmar. Projektgruppen har valt att budgetera 10 timmar / vecka / medlem (totalt 280 timmar), med flexibilitet att vissa veckor kan innebära mer arbetstid och andra mindre.
+Den resurs som kan regleras av projektgruppen är projektmedlemmarnas arbetsinsats, uttryckt i antalet arbetstimmar. Projektgruppen har valt att budgetera 10 timmar / vecka / medlem, med flexibilitet att vissa veckor kan innebära mer arbetstid och andra mindre. 
 
 # Intressenter
 Detta projekt har följande intressenter
@@ -100,17 +111,17 @@ Detta projekt har följande intressenter
 | Projektmedlem             | Axel Lystam            | Påverkar direkt utfallet av projektarbetet                      |
 | Projektmedlem             | Daniel Dahlberg        | Påverkar direkt utfallet av projektarbetet                      |
 | Projektmedlem             | Marcus Cangren         | Påverkar direkt utfallet av projektarbetet                      |
-| Uppgiftsägare             | KTH                    | Påverkar projektet direkt genom krav på slutprodukt             |
+| Uppgiftsägare             | Examinator             | Påverkar projektet direkt genom krav på slutprodukt             |
 | Potentiella arbetsgivare  |                        | Påverkar projektet indirekt; förväntningar finns men är okända  |
 
 # Riskanalys
 Nedan följer en tabell med sammanställning av identifierade risker. Samtliga risker graderas på en skala 1-5 i termer av sannolikhet respektive påverkan, där 5 är högst sannolikt respektive högsta möjliga påverkan. Förebyggande åtgärd och åtgärd vid riskutfall planeras utefter riskens sannolikhet och påverkan.
-| ID | Risk                                                    | Sannolikhet | Påverkan | Förebyggande åtgärd                                                                      | Åtgärd vid riskutfall                                                         |
-|----|---------------------------------------------------------|-------------|----------|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| R1 | Sjukdom i gruppen                                       | 2/5         | 4/5      | Överlappande ansvarsområden                                                              | Delegering av ansvarsområde                                                   |
-| R2 | C-kod ej funktionell innan deadline                     | 2/5         | 4/5      | Skapa backupkod i LEGO:s programmeringsmiljö.                                            | Övergå till backup                                                            |
-| R3 | Okänt teknikfel under demonstration                     | 3/5         | 5/5      | Testa funktionalitet i slutet av varje iteration; notera vanliga fel och hur dessa löses | Kontrollera fysisk konstruktion. Fall tillbaka på LEGO:s kod vid mjukvarufel. |
-| R4 | Risk för att medlemmar inte kunnat arbeta självständigt | 3/5         | 3/5      |                                                                                          |                                                                               |
+| ID 	| Risk                                     	| Sannolikhet 	| Påverkan 	| Förebyggande åtgärd                                                                        	| Åtgärd vid riskutfall                                                             	|
+|----	|------------------------------------------	|-------------	|----------	|--------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------	|
+| R1 	| Sjukdom i gruppen                        	| 2/5         	| 3/5      	| Överlappande ansvarsområden                                                                	| Delegering av ansvarsområde                                                       	|
+| R2 	| C-kod ej funktionell innan deadline      	| 1/5         	| 4/5      	| Skapa backupkod i LEGO:s programmeringsmiljö                                               	| Övergå till backup                                                                	|
+| R3 	| Okänt teknikfel under demonstration      	| 3/5         	| 5/5      	| Funktionstesta regelbundet och innan demosntration; notera vanliga fel och hur dessa löses 	| Kontrollera fysisk konstruktion; Reboot.                                          	|
+| R4 	| Precision av givna LEGO-sensorer för låg 	| 3/5         	| 4/5      	| Gedigen utvärdering av precision och noggrannhet; korrigeringsfaktorer i kod               	| Implementera kontrollfunktioner / Inkludera kontrollmoment som korrigerar för fel 	|
 
 # Förändringsplan
 Projektet är öppet för förslag på ändringar från samtliga projektmedlemmar och från uppgiftsägaren. Nedan specificeras typer av ändringar som kan uppkomma under projektets gång, vem/vilka som har beslutsfattanderoll och en beskrivning av ändringsprocessen:
@@ -138,9 +149,7 @@ Nedan listas vilka dokument som skall användas, underhållas och/eller leverera
 | Projektdefinition         | 2021-10-28    | Projektledare   | Grovplanering av projektet                                  |
 | Kravspecifikation         | 2021-10-28    | Projektledare   | Sammanställning av krav på produkt                          |
 | WBS-ritning               | 2021-10-28    | Projektledare   | Sammanställning av delproblem utav större problem           |
-| PERT-schema               | 2021-10-28    | Projektledare   | Nätverksdiagram som beskriver ordningen av arbetsuppgifter  |
 | Gantt-schema              | 2021-10-28    | Projektledare   | Flödesschema som beskriver faser i projektet                |
-| Testprotokoll             | 2021-10-28    |                 |                                                             |
 | Projekthistorik           | 2021-10-28    | Projektledare   |                                                             |
 | Reflektionsmötesprotokoll |               | Projektgrupp    |                                                             |
 | Socialt kontrakt          |               | Projektgrupp    | Kontrakt med regler för acceptabelt beteende inom gruppen   |
@@ -171,10 +180,3 @@ Syfte och tider för rapportering och granskning följer:
 | Projektpresentation   | 2021-10-12  | Uppgiftsägare  | Ej specificerat / Identifierat 2021-09-16                                                                                                                                        |
 | Projektdemonstration  | 2021-10-13  | Uppgiftsägare  | Att LEGO-robot levereras enligt kravspecifikationen                                                                                                                              |
 | Rapportutvärdering    | 2021-10-28  | Uppgiftsägare  | Dokument enligt specifikation under ”Dokumentplan”, kursrapport                                                                                                                  |
-
-
-
-
-
-
-
