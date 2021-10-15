@@ -22,8 +22,8 @@ void orient_towards_wall(int rotation_speed); // Hittar och åker vinkelrätt in
 void turn(int degrees_to_rotate_clockwise, int rotation_speed); // Rotererar ett visst antal grader med en viss hastighet.
 void move_250_cm(); // Gör att roboten färdas 250 cm.
 void move_towards_wall(int rotation_speed); // Gör att roboten åker tills den hittar en vägg inom 30 cm.
-void orient_towards_wall_2(int rotation_speed); // Avlastar posten.
-void drop_mail(); // Hittar och åker baklänges vinkelrätt in i närmsta vägg.
+void drop_mail(); // Avlastar posten.
+void orient_towards_wall_3(int rotation_speed); // Hittar och åker baklänges vinkelrätt in i närmsta vägg.
 
 
 void main()
@@ -50,7 +50,8 @@ void main()
     sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
     Sleep (500);
 
-    orient_towards_wall_2(100);
+    orient_towards_wall_3(100);
+    move_towards_wall(400);
 
     //Nollställer gyrosensorn.
     sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
@@ -236,7 +237,7 @@ void drop_mail()
   tacho_stop(MOTOR_UP);
 }
 
-void orient_towards_wall_2(int rotation_speed)
+void orient_towards_wall_3(int rotation_speed)
 {
     POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);
     POOL_T gyro_sensor = sensor_search(LEGO_EV3_GYRO);
@@ -250,17 +251,15 @@ void orient_towards_wall_2(int rotation_speed)
     int angle_to_shortest_distance = 0;
     int current_angle, current_distance;
 
-
-
-    move(rotation_speed * 1, rotation_speed * -1);
-    while(current_angle <= 360)
+    move(rotation_speed *-1, rotation_speed * 1);
+    while(current_angle >= -360)
     {
         current_angle = sensor_get_value(0, gyro_sensor, 0);
         current_distance = sensor_get_value(0, ultrasound_sensor, 0);
 
         if(current_angle > 330)
         {
-          move(rotation_speed / 2, -rotation_speed / 2);
+          move(-rotation_speed / 2, rotation_speed / 2);
         }
         if (current_distance < shortest_registered_distance)
         {
@@ -271,37 +270,32 @@ void orient_towards_wall_2(int rotation_speed)
 
     tacho_stop(MOTOR_BOTH);
 
-    if(angle_to_shortest_distance < 180)
+    if(angle_to_shortest_distance > 180)
     {
         move(rotation_speed, -rotation_speed);
 
-        while((current_angle - 360) <= angle_to_shortest_distance)
+        while((current_angle - 170) <= angle_to_shortest_distance)
         {
+          if(current_angle < -120)
+          {
+            move(rotation_speed / 2, -rotation_speed / 2);
+          }
             current_angle = sensor_get_value(0, gyro_sensor, 0);
         }
     }
 
-    if(angle_to_shortest_distance >= 180)
+    if(angle_to_shortest_distance <= 180)
     {
         move(-rotation_speed, rotation_speed);
 
-        while(current_angle >= angle_to_shortest_distance)
+        while(current_angle + 180 >= angle_to_shortest_distance)
         {
             current_angle = sensor_get_value(0, gyro_sensor, 0);
         }
     }
 
-    while(sensor_get_value(0, ultrasound_sensor, 0) < 300)
-    {
-        sensor_get_value(0, ultrasound_sensor, 0);
-        move(rotation_speed * -1, rotation_speed * -1);
-    }
-
-   while(sensor_get_value(0, ultrasound_sensor,0) > 300)
-    {
-        sensor_get_value(0, ultrasound_sensor, 0);
-        move(rotation_speed * 1, rotation_speed * 1);
-    }
+    move(-150, -150);
+    Sleep(10000);
 
     tacho_stop(MOTOR_BOTH);
 }

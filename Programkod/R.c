@@ -16,41 +16,49 @@
 #define Sleep(msec) usleep((msec) * 1000)
 
 
-void configure_sensors_and_motors();                                // Function that checks if sensors and motors are plugged in
-void move(int speed_left_motor, int speed_right_motor);             // Function that makes the robot move using large techo-motors, time and speed
-void orient_towards_wall(int rotation_speed);                                         // Function that orients the robot so that it faces the closest wall
-void turn(int degrees_to_rotate_clockwise, int rotation_speed);                                                        // Function that rotates the robot given degrees clockwise
-void move_250_cm();
-void move_towards_wall(int rotation_speed);
-void orient_towards_wall_2(int rotation_speed);                                                // Function that makes the robot move using degrees of movement of the wheels
-void drop_mail();                                                   // Function that makes the robot drop the mail
+void configure_sensors_and_motors(); //Konfigurerar sensorer och motorer.
+void move(int speed_left_motor, int speed_right_motor); // Gör att vänster och höger motorer rör på sig en viss hastighet.
+void orient_towards_wall(int rotation_speed); // Hittar och åker vinkelrätt in i närmsta vägg. Backar därefter 30 cm från väggen.
+void turn(int degrees_to_rotate_clockwise, int rotation_speed); // Rotererar ett visst antal grader med en viss hastighet.
+void move_250_cm(); // Gör att roboten färdas 250 cm.
+void move_towards_wall(int rotation_speed); // Gör att roboten åker tills den hittar en vägg inom 30 cm.
+void orient_towards_wall_2(int rotation_speed); // Avlastar posten.
+void drop_mail(); // Hittar och åker baklänges vinkelrätt in i närmsta vägg.
 
 
 void main()
 {
     brick_init();
-    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);          // Vad händer om man tar bort POOL_T?
+    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);
     POOL_T gyro_sensor = sensor_search(LEGO_EV3_GYRO);
     configure_sensors_and_motors();
-    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
-    Sleep (500);
-    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
-    Sleep (500);
-    orient_towards_wall(100);
-    turn(-90, 100);
-    brick_uninit();                                                       // Behöver ses över om rotationen sker i korrekt ordning (lat :-P)
-    move_250_cm();                                           // Behöver ses över om kod är korrekt
-    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
-    Sleep (500);
-    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
-    Sleep (500);
-    orient_towards_wall_2(100);
-    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
-    Sleep (500);
-    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
-    Sleep (500);
-    drop_mail();
 
+    //Nollställer gyrosensorn.
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
+    Sleep (500);
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
+    Sleep (500);
+
+    orient_towards_wall(100);
+    turn(90, 100);
+    brick_uninit();
+    move_250_cm();
+
+    //Nollställer gyrosensorn.
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
+    Sleep (500);
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
+    Sleep (500);
+
+    orient_towards_wall_2(100);
+
+    //Nollställer gyrosensorn.
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
+    Sleep (500);
+    sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_ANG);
+    Sleep (500);
+
+    drop_mail();
     brick_uninit();
 }
 
@@ -87,7 +95,7 @@ void move(int speed_left_motor, int speed_right_motor)
 
 void orient_towards_wall(int rotation_speed)
 {
-    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);          // Vad händer om man tar bort POOL_T?
+    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);
     POOL_T gyro_sensor = sensor_search(LEGO_EV3_GYRO);
 
     sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
@@ -106,8 +114,6 @@ void orient_towards_wall(int rotation_speed)
     {
         current_angle = sensor_get_value(0, gyro_sensor, 0);
         current_distance = sensor_get_value(0, ultrasound_sensor, 0);
-
-        printf("G1: %d, UL1: %d\n", current_angle, current_distance);
 
         if(current_angle > 330)
         {
@@ -128,7 +134,6 @@ void orient_towards_wall(int rotation_speed)
 
         while((current_angle - 360) <= angle_to_shortest_distance)
         {
-            printf("G2: %d, UL2: %d\n", current_angle, current_distance);
             current_angle = sensor_get_value(0, gyro_sensor, 0);
         }
     }
@@ -139,7 +144,6 @@ void orient_towards_wall(int rotation_speed)
 
         while(current_angle >= angle_to_shortest_distance)
         {
-            printf("G3: %d, UL3: %d\n", current_angle, current_distance);
             current_angle = sensor_get_value(0, gyro_sensor, 0);
         }
     }
@@ -150,23 +154,15 @@ void orient_towards_wall(int rotation_speed)
     while(sensor_get_value(0, ultrasound_sensor, 0) < 300)
     {
         sensor_get_value(0, ultrasound_sensor, 0);
-        printf("G4: %d, UL4: %d\n", current_angle, current_distance);
         move(rotation_speed * -1, rotation_speed * -1);
     }
-
-/*    while(sensor_get_value(0, ultrasound_sensor,0) > 300)
-    {
-        printf("G5: %d, UL5: %d\n", current_angle, sensor_get_value(0, ultrasound_sensor, 0));
-        sensor_get_value(0, ultrasound_sensor, 0);
-        move(rotation_speed * 1, rotation_speed * 1);
-    }*/
 
     tacho_stop(MOTOR_BOTH);
 }
 
 void turn(int degrees_to_rotate_clockwise, int rotation_speed)
 {
-    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);          // Vad händer om man tar bort POOL_T?
+    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);
     POOL_T gyro_sensor = sensor_search(LEGO_EV3_GYRO);
     int correction_factor = 0;
 
@@ -174,7 +170,7 @@ void turn(int degrees_to_rotate_clockwise, int rotation_speed)
 
     current_angle = sensor_get_value(0, gyro_sensor, 0);
 
-    if(degrees_to_rotate_clockwise > 0)                 // Rotates left if + 90 degrees
+    if(degrees_to_rotate_clockwise > 0)
     {
         current_angle = sensor_get_value(0, gyro_sensor, 0);
         move(rotation_speed * 1,rotation_speed * -1);
@@ -185,11 +181,10 @@ void turn(int degrees_to_rotate_clockwise, int rotation_speed)
             {
               move(rotation_speed / 2, -rotation_speed / 2);
             }
-            printf("G6: %d\n", sensor_get_value(0, gyro_sensor, 0));
-            }
         }
+    }
 
-    if(degrees_to_rotate_clockwise < 0)                 // Rotates left if + 90 degrees
+    if(degrees_to_rotate_clockwise < 0)
     {
         current_angle = sensor_get_value(0, gyro_sensor, 0);
         move(rotation_speed * -1, rotation_speed * 1);
@@ -200,9 +195,8 @@ void turn(int degrees_to_rotate_clockwise, int rotation_speed)
             {
               move(-rotation_speed / 2, rotation_speed / 2);
             }
-            printf("G7: %d\n", sensor_get_value(0, gyro_sensor, 0));
-            }
         }
+    }
 
     tacho_stop(MOTOR_BOTH);
 }
@@ -210,15 +204,15 @@ void turn(int degrees_to_rotate_clockwise, int rotation_speed)
 void move_250_cm()
 {
     tacho_set_speed_sp( MOTOR_BOTH, tacho_get_max_speed( MOTOR_LEFT, 0 ) * 0.4 );
-    tacho_set_position_sp(MOTOR_BOTH, 5116 );                       //Antal grader hjulet ska röra sig. 
+    tacho_set_position_sp(MOTOR_BOTH, 5116 );
 	tacho_run_to_rel_pos(MOTOR_BOTH);
     Sleep(15000);
-    tacho_stop(MOTOR_BOTH);                                     //tror detta kanske är onödigt (från Marcus)
+    tacho_stop(MOTOR_BOTH);
 }
 
 void move_towards_wall(int rotation_speed)
 {
-    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);          // Vad händer om man tar bort POOL_T?
+    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);
     POOL_T gyro_sensor = sensor_search(LEGO_EV3_GYRO);
 
     int shortest_registered_distance = 2550;
@@ -227,7 +221,6 @@ void move_towards_wall(int rotation_speed)
 
     while(sensor_get_value(0, ultrasound_sensor,0) > 300)
     {
-        printf("G5: %d, UL5: %d\n", current_angle, sensor_get_value(0, ultrasound_sensor, 0)); //ändrade till UL
         sensor_get_value(0, ultrasound_sensor, 0);
         move(rotation_speed * 1, rotation_speed * 1);
     }
@@ -237,19 +230,15 @@ void move_towards_wall(int rotation_speed)
 void drop_mail()
 {
   tacho_set_speed_sp( MOTOR_UP, (tacho_get_max_speed( MOTOR_UP, 0 ) * 1) );
-  printf("1: %d", tacho_get_position(MOTOR_UP, 0));
   tacho_set_position_sp(MOTOR_UP, -100);
-  printf("2: %d", tacho_get_position(MOTOR_UP, 0));
   tacho_run_to_rel_pos(MOTOR_UP);
-  printf("3: %d", tacho_get_position(MOTOR_UP, 0));
   Sleep(10000);
-  printf("4: %d", tacho_get_position(MOTOR_UP, 0));
   tacho_stop(MOTOR_UP);
 }
 
 void orient_towards_wall_2(int rotation_speed)
 {
-    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);          // Vad händer om man tar bort POOL_T?
+    POOL_T ultrasound_sensor = sensor_search(LEGO_EV3_US);
     POOL_T gyro_sensor = sensor_search(LEGO_EV3_GYRO);
 
     sensor_set_mode(gyro_sensor, LEGO_EV3_GYRO_GYRO_RATE);
@@ -268,8 +257,6 @@ void orient_towards_wall_2(int rotation_speed)
     {
         current_angle = sensor_get_value(0, gyro_sensor, 0);
         current_distance = sensor_get_value(0, ultrasound_sensor, 0);
-
-        printf("G1: %d, UL1: %d\n", current_angle, current_distance);
 
         if(current_angle > 330)
         {
@@ -290,7 +277,6 @@ void orient_towards_wall_2(int rotation_speed)
 
         while((current_angle - 360) <= angle_to_shortest_distance)
         {
-            printf("G2: %d, UL2: %d\n", current_angle, current_distance);
             current_angle = sensor_get_value(0, gyro_sensor, 0);
         }
     }
@@ -301,24 +287,18 @@ void orient_towards_wall_2(int rotation_speed)
 
         while(current_angle >= angle_to_shortest_distance)
         {
-            printf("G3: %d, UL3: %d\n", current_angle, current_distance);
             current_angle = sensor_get_value(0, gyro_sensor, 0);
         }
     }
 
-    //move(150, 150);
-    //Sleep(10000);
-
     while(sensor_get_value(0, ultrasound_sensor, 0) < 300)
     {
         sensor_get_value(0, ultrasound_sensor, 0);
-        printf("G4: %d, UL4: %d\n", current_angle, current_distance);
         move(rotation_speed * -1, rotation_speed * -1);
     }
 
    while(sensor_get_value(0, ultrasound_sensor,0) > 300)
     {
-        printf("G5: %d, UL5: %d\n", current_angle, sensor_get_value(0, ultrasound_sensor, 0));
         sensor_get_value(0, ultrasound_sensor, 0);
         move(rotation_speed * 1, rotation_speed * 1);
     }
