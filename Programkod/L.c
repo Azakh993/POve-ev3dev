@@ -1,5 +1,5 @@
 /*
-Projektmedlemmar har bidragit med följande till programkoden:
+Projektmedlemmarna har bidragit med följande till programkoden:
 
 Axel Lystam har skrivit funktionerna turn och drop_mail.
 Azmeer Akhtar Khawaja har skrivit huvudfunktionen main och allt annat ovanför main.
