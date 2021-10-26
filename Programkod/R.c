@@ -1,3 +1,12 @@
+/*
+Projektmedlemmar har bidragit med följande till programkoden:
+
+Axel Lystam har skrivit funktionerna turn och drop_mail.
+Azmeer Akhtar Khawaja har skrivit huvudfunktionen main och allt annat ovanför main.
+Daniel Dahlberg har skrivit funktionerna orient_towards_wall, move_towards_wall och orient_towards_wall_2.
+Marcus Cangren har skrivit funktionerna move och move_250_cm.
+*/
+
 #include <stdio.h>
 #include "brick.h"
 #include <unistd.h>
