@@ -1,12 +1,10 @@
 # POve-ev3dev
 
-## Projektöversikt
+## Background
+This project is part of the course Engineering Methodology II1300, in which participants gain knowledge and experience in project methodology, group dynamics, project management, project tools, and project work.
 
-### Bakgrund
-Detta projekt ingår i kursen Ingenjörsmetodik II1300, i vilket deltagarna får kunskap om och erfarenhet inom projektmetodik, gruppdynamik, projektledning, projektverktyg och projektarbete.
+## Purpose
+The purpose of the project is to produce a LEGO robot capable of orienting itself, navigating to pre-programmed points, and assisting in mail delivery.
 
-### Syfte
-Projektets syfte är att producera en LEGO-robot som har förmågan att orientera sig, navigera till förprogrammerade punkter och avlasta post.
-
-### Mål
-Projektets resultatmål är att leverera LEGO-roboten i enlighet med kravspecifikationen på utsatt datum, 2021-10-13. Effektmålet är att denna robot kan bistå med att utdela post till olika adresser, och således minska på behovet för disponering av mänskliga resurser för detta. Projektgruppens interna mål är att samtliga projektmedlemmar får tillräckligt god förståelse för projektarbete så att de individuellt kan driva ett mindre IT-projekt i framtiden.
+## Goals
+The project's result goal is to deliver the LEGO robot according to the specification by the set date, 2021-10-13. The effect goal is for this robot to assist in distributing mail to various addresses, thereby reducing the need for human resources for this task. The internal goal of the project group is for all project members to gain a sufficiently good understanding of project work so that they can individually manage a smaller IT project in the future.
